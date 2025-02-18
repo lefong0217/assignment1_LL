@@ -178,6 +178,16 @@ public:
         return count;
     }
 
+    void printList(Node* head) {
+        Node* current = head;
+        while (current != nullptr) {
+            cout << "Title: " << current->article.title
+                 << ", Year: " << current->article.getYear() << endl;
+            current = current->next;
+        }
+        cout << "--------------------------\n";
+    }
+
     // Merge function to combine two sorted halves
     Node* merge(Node* left, Node* right) {
         Node* result = nullptr;
@@ -196,24 +206,6 @@ public:
         }
 
         return result;
-    }
-
-    // Merge Sort function
-    void mergeSort(Node** headRef) {
-        Node* head = *headRef;
-        Node* a;
-        Node* b;
-
-        if (head == nullptr || head->next == nullptr) {
-            return;
-        }
-
-        split(head, &a, &b);
-
-        mergeSort(&a);
-        mergeSort(&b);
-
-        *headRef = merge(a, b);
     }
 
     // Function to split the linked list into two halves
@@ -235,6 +227,25 @@ public:
         *backRef = slow->next;
         slow->next = nullptr;
     }
+
+    // Merge Sort function
+    void mergeSort(Node** headRef) {
+        Node* head = *headRef;
+        Node* a;
+        Node* b;
+
+        if (head == nullptr || head->next == nullptr) {
+            return;
+        }
+
+        split(head, &a, &b);
+
+        mergeSort(&a);
+        mergeSort(&b);
+
+        *headRef = merge(a, b);
+    }
+
 
     // Wrapper function to call mergeSort
     void sortArticlesByYear() {
